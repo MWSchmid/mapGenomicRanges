@@ -41,11 +41,9 @@ void getRegMapping(region &reg, database &anno)
         mapping = anno.bestRmapRangeStrand(reg.chrom, reg.start, reg.end, reg.strand);
     }
 
+    reg.bestmappingfeatures.clear();
     // now fill in the mappings and the best mapping variables of reg
-    if (mapping.isEmpty()) {
-        reg.bestmappingfeatures.clear();
-    }
-    else {
+    if (!mapping.isEmpty()) {
         foreach (databaseItem* element, mapping) {
             reg.bestmappingfeatures << element;
         }

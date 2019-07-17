@@ -8,7 +8,7 @@
 QT       += core gui xml widgets
 #QT       -= gui
 
-TARGET = mapGenomicRanges
+TARGET = mapGenomicRangesOverlap
 CONFIG   += console
 CONFIG   -= app_bundle
 
