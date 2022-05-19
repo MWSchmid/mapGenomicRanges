@@ -27,6 +27,7 @@ public:
         this->strand = strand;
         this->start = start.toUInt();
         this->end = end.toUInt();
+        this->otherData.clear();
     }
 };
 
@@ -137,10 +138,17 @@ bool writeRegions(QList<region> &regions, QString &fileName)
                 out << "none,intergenic";
             }
             else {
-                out << reg.bestmappingfeatures.at(0)->topParent()->data(0).toString() << ',' << reg.bestmappingfeatures.at(0)->data(5).toString(); //the locusname and the feature
+                //this somehow missed many of the entries but it seems it's not related to the lines here but to something above, index start/end of search? Yes
+                //out << reg.bestmappingfeatures.at(0)->topParent()->data(0).toString() << ',' << reg.bestmappingfeatures.at(0)->data(5).toString(); //the locusname and the feature
+                //for (i = 1; i < reg.bestmappingfeatures.count(); ++i) {
+                //    if (reg.bestmappingfeatures.at(i)->topParent()->data(0).toString() != reg.bestmappingfeatures.at(i-1)->topParent()->data(0).toString()) { // write only one variant
+                //        out << '|' << reg.bestmappingfeatures.at(i)->topParent()->data(0).toString() << ',' << reg.bestmappingfeatures.at(i)->data(5).toString(); //the locusname and the feature
+                //    }
+                //}
+                out << reg.bestmappingfeatures.at(0)->topParent()->data(0).toString(); //the locusname only
                 for (i = 1; i < reg.bestmappingfeatures.count(); ++i) {
                     if (reg.bestmappingfeatures.at(i)->topParent()->data(0).toString() != reg.bestmappingfeatures.at(i-1)->topParent()->data(0).toString()) { // write only one variant
-                        out << '|' << reg.bestmappingfeatures.at(i)->topParent()->data(0).toString() << ',' << reg.bestmappingfeatures.at(i)->data(5).toString(); //the locusname and the feature
+                        out << '|' << reg.bestmappingfeatures.at(i)->topParent()->data(0).toString(); //the locusname only
                     }
                 }
             }
